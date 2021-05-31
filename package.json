@@ -1,0 +1,19 @@
+{
+  "name": "back-end-basic",
+  "version": "1.0.0",
+  "description": "back-end",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kuznets-dev/back-end-basic.git"
+  },
+  "author": "kuznets-dev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kuznets-dev/back-end-basic/issues"
+  },
+  "homepage": "https://github.com/kuznets-dev/back-end-basic#readme"
+}
