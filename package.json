@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/kuznets-dev/back-end-basic/issues"
   },
-  "homepage": "https://github.com/kuznets-dev/back-end-basic#readme"
+  "homepage": "https://github.com/kuznets-dev/back-end-basic#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
