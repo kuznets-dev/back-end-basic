@@ -36,63 +36,15 @@
     "createdAt": "2021-05-31T07:50:06.983Z"
   },
   {
-    "uuid": "b6df6713-e4bc-478a-a066-ccbe92a34a1b",
-    "name": "task",
-    "done": true,
-    "createdAt": 1622474814497
+    "uuid": "08b425e0-d691-442a-aecb-74efa1fb7338",
+    "name": "New task 7",
+    "createdAt": 1622550747673,
+    "done": true
   },
   {
-    "uuid": "bbcac3a0-2bb4-4f29-bfed-f21b18d83eb8",
-    "name": "task",
+    "uuid": "7010f074-ca0d-49a7-a483-694b4a8e5700",
+    "name": "New task 9",
     "done": true,
-    "createdAt": 1622474832000
-  },
-  {
-    "uuid": "f3dd45a9-767e-47eb-aaf4-6cc491728950",
-    "name": "task",
-    "done": true,
-    "createdAt": "1,622,474,905,598"
-  },
-  {
-    "uuid": "01e716ee-9b9b-4611-a520-d633d8002fab",
-    "name": "task",
-    "done": true,
-    "createdAt": 1622475090323
-  },
-  {
-    "uuid": "cf182e5d-bd1d-49c6-a89b-8d98f76e2edc",
-    "name": "task",
-    "done": true,
-    "createdAt": 1622475361529
-  },
-  {
-    "uuid": "d4feebad-50c7-489b-8b68-867324c9fe5f",
-    "name": "task",
-    "done": true,
-    "createdAt": 1622475383054
-  },
-  {
-    "uuid": "ab6b3277-74e9-42e4-95a5-e5d01518056c",
-    "name": "task",
-    "done": true,
-    "createdAt": 1622475412850
-  },
-  {
-    "uuid": "b5ea5153-ab94-4fd2-a800-e781e860ddf6",
-    "name": "sdfsdfsdfsf",
-    "done": true,
-    "createdAt": 1622475433819
-  },
-  {
-    "uuid": "815b7afd-387a-4e13-9389-ed6202742b9d",
-    "name": "sdfsdfsdfsf",
-    "done": true,
-    "createdAt": 1622475516611
-  },
-  {
-    "uuid": "7c7e6580-7d5a-4152-996a-d873b7a04975",
-    "name": "sdfsdfsdfsf",
-    "done": true,
-    "createdAt": 1622475632141
+    "createdAt": 1622558288213
   }
 ]
