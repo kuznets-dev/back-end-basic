@@ -13,12 +13,10 @@ router.delete('/task/:id', (req, res) => {
         const tasks = JSON.parse(data);
         const index = tasks.findIndex(task => task.uuid === id);
         const deletedTask = tasks[index];
-
         const newTasks = tasks.filter(task => task.uuid !== id);
 
-        data = JSON.stringify(newTasks, null, 2);
-        fs.writeFileSync('tasks.json', data);
-        res.send(deletedTask);
+        fs.writeFileSync('tasks.json', JSON.stringify(newTasks, null, 2));
+        res.send({ msg: 'Task was deleted', deletedTask });
     });
 });
 
