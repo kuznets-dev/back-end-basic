@@ -7,6 +7,8 @@ const router = Router();
 router.get('/tasks', 
     query('filterBy').isString().optional({ checkFalsy: true }),
     query('orderBy').isString().optional({ checkFalsy: true }),
+    query('page').isInt().optional({ checkFalsy: true }),
+    query('limit').isInt().optional({ checkFalsy: true }),
     (req, res) => {
     const errors = validationResult(req);
 
@@ -18,7 +20,7 @@ router.get('/tasks',
         
         if (err) {return res.send(err)};
 
-        const { filterBy, orderBy } = req.query;
+        const { filterBy, orderBy, page = 1, limit = 5 } = req.query;
         const tasks = JSON.parse(data);
 
         let newTasks = tasks;
@@ -31,7 +33,12 @@ router.get('/tasks',
             newTasks = newTasks.sort((a, b) => orderBy === 'asc' ? a.createdAt - b.createdAt : b.createdAt - a.createdAt);
         }
 
-        res.send(newTasks);
+        const pageCount = Math.ceil(newTasks.length / limit);
+        const indexOfLastPost = page * limit;
+        const indexOfFirstPost = indexOfLastPost - limit;
+        const slicedTasks = newTasks.slice(indexOfFirstPost, indexOfLastPost);
+
+        res.send({ slicedTasks, pageCount });
     })
 });
 
