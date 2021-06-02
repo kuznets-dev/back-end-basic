@@ -1,15 +1,24 @@
 import { Router } from 'express';
 import fs from 'fs';
+import { param, validationResult } from 'express-validator';
 
 const router = Router();
 
-router.delete('/task/:id', (req, res) => {
+router.delete('/task/:id',
+    param('id').isUUID(),
+    (req, res) => {
+
+    const errors = validationResult(req);
+    const id = req.params.id;
+
+    if (!errors.isEmpty()) {
+        return res.status(400).send(errors.array());
+    }
 
     fs.readFile('tasks.json', (err, data) => {
 
         if (err) {return res.status(404).send('Task not found')};
 
-        const id = req.params.id;
         const tasks = JSON.parse(data);
         const index = tasks.findIndex(task => task.uuid === id);
         const deletedTask = tasks[index];
