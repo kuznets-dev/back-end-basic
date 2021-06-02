@@ -21,6 +21,7 @@
   "homepage": "https://github.com/kuznets-dev/back-end-basic#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "express-validator": "^6.11.1",
     "uuidv4": "^6.2.8"
   },
   "devDependencies": {
