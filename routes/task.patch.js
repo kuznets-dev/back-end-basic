@@ -1,35 +1,37 @@
-import { Router } from 'express';
-import fs from 'fs';
-import { body, validationResult } from 'express-validator';
+const { Router } = require ('express');
+const { Task } = require ('../models');
+const { body, param, validationResult } = require ('express-validator');
 
 const router = Router();
 
-router.patch('/task/:id',
+router.patch('/task/:uuid',
     body('name').isString().isLength({ min: 1 }),
     body('done').isBoolean(),
-    (req, res) => {
+    param('uuid').isUUID(),
+    async (req, res) => {
 
-    const errors = validationResult(req);
+        const uuid = req.params.uuid;
+        const { name, done } = req.body;
 
-    if (!errors.isEmpty()) {
-        return res.status(422).send(errors.array());
-    }
-        
-    const id = req.params.id;
+        try {
+            const errors = validationResult(req);
 
-    fs.readFile('tasks.json', (err, data) => {
-        const task = req.body;
-        const tasks = JSON.parse(data);
+            if (!errors.isEmpty()) {
+                return res.status(400).send(errors.array());
+            }
 
-        const index = tasks.findIndex(task => task.uuid === id);
-        
-        if (index === -1) {return res.status(400).send('Task not found')};
+            const task = await Task.findOne({ where: {uuid} });
 
-        tasks[index] = { ...tasks[index], name: task.name, done: task.done };
+            task.name = name;
+            task.done = done;
 
-        fs.writeFileSync('tasks.json', JSON.stringify(tasks, null, 2));
-        res.send({ msg: 'Task was changed' });
-    })
+            await task.save();
+
+            return res.send({ message: 'Task was changed!' });
+
+        } catch (err) {
+            return res.status(404).send({ error: 'Task not found!' });
+        }
 })
 
-export default router;
+module.exports = router;
