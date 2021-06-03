@@ -18,10 +18,21 @@ router.get('/tasks',
                 return res.status(400).send(errors.array());
             }
 
-            const tasks = await Task.findAll();
+            const { filterBy = '', orderBy = 'desc', page = 1, limit = 5 } = req.query;
+
+            const filteredTasks = { 'true': true, 'false': false, '': [true, false] };
+            const sorteredTasks = { 'asc': 'ASC', 'desc': 'DESC' };
+            
+            const tasks = await Task.findAll({
+                where: {
+                    done: filteredTasks[filterBy]
+                },
+                order: [['createdAt', sorteredTasks[orderBy]]]
+            });
+            
             return res.json(tasks);
         } catch (err) {
-            return res.status(400).send(errors.array());
+            return res.status(400).send(err);
         }
 });
 
