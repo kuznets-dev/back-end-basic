@@ -22,7 +22,7 @@ router.post('/task',
         return res.json(task); 
         
     } catch (err) {
-        return res.status(400).send(errors.array());
+        return res.status(400).send(err);
     }
 })
 
