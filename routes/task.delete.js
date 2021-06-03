@@ -1,32 +1,31 @@
-import { Router } from 'express';
-import fs from 'fs';
-import { param, validationResult } from 'express-validator';
+const { Router } = require ('express');
+const { Task } = require ('../models');
+const { param, validationResult } = require ('express-validator');
 
 const router = Router();
 
-router.delete('/task/:id',
-    param('id').isUUID(),
-    (req, res) => {
+router.delete('/task/:uuid',
+    param('uuid').isUUID(),
+    async (req, res) => {
 
-    const errors = validationResult(req);
-    const id = req.params.id;
+        const uuid = req.params.uuid;
+        
+        try {
+            const errors = validationResult(req);
 
-    if (!errors.isEmpty()) {
-        return res.status(400).send(errors.array());
-    }
+            if (!errors.isEmpty()) {
+                return res.status(400).send(errors.array());
+            }
 
-    fs.readFile('tasks.json', (err, data) => {
+            const task = await Task.findOne({ where: { uuid } });
 
-        if (err) {return res.status(404).send('Task not found')};
+            await task.destroy();
 
-        const tasks = JSON.parse(data);
-        const index = tasks.findIndex(task => task.uuid === id);
-        const deletedTask = tasks[index];
-        const newTasks = tasks.filter(task => task.uuid !== id);
+            return res.send({ message: 'Task was deleted!' });
 
-        fs.writeFileSync('tasks.json', JSON.stringify(newTasks, null, 2));
-        res.send({ msg: 'Task was deleted', deletedTask });
-    });
+        } catch (err) {
+            return res.status(404).send({ error: 'Task not found!' });
+        }
 });
 
-export default router;
+module.exports = router;
