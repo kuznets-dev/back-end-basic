@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "back-end",
   "main": "app.js",
-  "type": "module",
   "scripts": {
     "dev": "nodemon app.js",
     "start": "node app.js",
@@ -22,6 +21,9 @@
   "dependencies": {
     "express": "^4.17.1",
     "express-validator": "^6.11.1",
+    "pg": "^8.6.0",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^6.6.2",
     "uuidv4": "^6.2.8"
   },
   "devDependencies": {
