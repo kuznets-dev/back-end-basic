@@ -1,5 +1,6 @@
 const { Router } = require ("express");
 const { Task } = require ('../models');
+const { ErrorHandler } = require ('../error')
 const { query, validationResult } = require ('express-validator');
 
 const router = Router();
@@ -9,19 +10,22 @@ router.get('/tasks',
     query('orderBy').isString().optional({ checkFalsy: true }),
     query('page').isInt().optional({ checkFalsy: true }),
     query('limit').isInt().optional({ checkFalsy: true }),
-    async (req, res) => {
-
+    async (req, res, next) => {
         try {
             const errors = validationResult(req);
 
             if (!errors.isEmpty()) {
-                return res.status(400).send(errors.array());
+                throw new ErrorHandler(400, errors.array());
             }
 
             const { filterBy = '', orderBy = 'desc', page = 1, limit = 5 } = req.query;
 
             const filteredTasks = { 'true': true, 'false': false, '': [true, false] };
             const sorteredTasks = { 'asc': 'ASC', 'desc': 'DESC' };
+
+            if (filteredTasks[filterBy] === undefined || sorteredTasks[orderBy] === undefined) {
+                throw new ErrorHandler(400, 'Something went wrong...');
+            }
             
             const tasks = await Task.findAll({
                 where: {
@@ -32,7 +36,7 @@ router.get('/tasks',
             
             return res.json(tasks);
         } catch (err) {
-            return res.status(400).send(err);
+            next(err);
         }
 });
 
