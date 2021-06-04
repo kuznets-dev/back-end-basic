@@ -18,7 +18,9 @@ router.delete('/task/:uuid',
                 throw new ErrorHandler(400, errors.array());
             }
 
-            const task = await Task.findOne({ where: { uuid } });
+            const task = await Task.findOne({
+                where: { uuid }
+            });
 
             if (!task) {
                 throw new ErrorHandler(400, 'Id not found');
