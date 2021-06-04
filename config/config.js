@@ -23,6 +23,12 @@ module.exports = {
     "database": process.env.DB_NAME_PROD,
     "host": process.env.DB_HOST_PROD,
     "port": process.env.DB_PORT_PROD,
+    "dialectOptions": {
+      "ssl": {
+        "require": true, // This will help you. But you will see nwe error
+        "rejectUnauthorized": false // This line will fix new error
+      }
+    },
     "dialect": "postgres"
   }
 }
