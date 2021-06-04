@@ -13,6 +13,10 @@ app.use(taskPOST);
 app.use(taskPATCH);
 app.use(taskDEL);
 
+app.use((err, req, res, next) => {
+    handleError(err, res);
+});
+
 app.listen(PORT, () => {
     console.log(`Server started on port: ${PORT}`);
 })
