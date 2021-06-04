@@ -3,6 +3,7 @@ const tasksGET = require ('./routes/tasks.get.js');
 const taskPOST = require ('./routes/task.post.js');
 const taskPATCH = require ('./routes/task.patch.js');
 const taskDEL = require ('./routes/task.delete.js');
+const { handleError } = require('./helpers/error');
 
 const PORT = process.env.PORT || 3000;
 const app = express();
