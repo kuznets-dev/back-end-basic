@@ -26,15 +26,19 @@ router.get('/tasks',
             if (filteredTasks[filterBy] === undefined || sorteredTasks[orderBy] === undefined) {
                 throw new ErrorHandler(400, 'Something went wrong...');
             }
-            
-            const tasks = await Task.findAll({
+
+            const {count, rows} = await Task.findAndCountAll({
                 where: {
                     done: filteredTasks[filterBy]
                 },
-                order: [['createdAt', sorteredTasks[orderBy]]]
-            });
+                order: [['createdAt', sorteredTasks[orderBy]]],
+                limit: limit,
+                offset: (page - 1) * limit
+            })
+
+            const pageCount =  Math.ceil(count / limit);
             
-            return res.json(tasks);
+            return res.send({pageCount, rows});
         } catch (err) {
             next(err);
         }
