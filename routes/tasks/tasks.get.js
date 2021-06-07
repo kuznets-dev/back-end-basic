@@ -43,8 +43,7 @@ router.get('/tasks',
             
             return res.send({pageCount, rows});
         } catch (err) {
-            console.log(err)
-            // next(err);
+            next(err);
         }
 });
 
