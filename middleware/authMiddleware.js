@@ -1,8 +1,8 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
-const { ErrorHandler } = require('../../error');
+const { ErrorHandler } = require('../error');
 
-module.exports = function (req, res, next) {
+module.exports = (req, res, next) => {
     if (req === 'OPTIONS') {
         next();
     }
@@ -19,9 +19,9 @@ module.exports = function (req, res, next) {
                 throw new ErrorHandler(400, 'Something was wrong');
             }
             
-            req.user = decoded;
+            res.locals.user = decoded;
         })
-        
+        next();
     } catch (err) {
         next(err);
     }
