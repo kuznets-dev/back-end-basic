@@ -10,6 +10,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.removeColumn('Tasks', 'user__uuid');
+    await queryInterface.removeColumn('Tasks', 'user_uuid');
   }
 };
