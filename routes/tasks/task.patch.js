@@ -2,10 +2,12 @@ const { Router } = require ('express');
 const { Task } = require ('../../models');
 const { body, param, validationResult } = require ('express-validator');
 const { ErrorHandler } = require('../../error');
+const authMiddleware = require('../../middleware/authMiddleware');
 
 const router = Router();
 
 router.patch('/task/:uuid',
+    authMiddleware,
     body('name').isString().isLength({ min: 1 }),
     body('done').isBoolean(),
     param('uuid').isUUID(),
@@ -21,8 +23,10 @@ router.patch('/task/:uuid',
                 throw new ErrorHandler(400, errors.array());
             }
 
+            const user_uuid = res.locals.user.uuid;
+
             const task = await Task.findOne({
-                where: { uuid }
+                where: { uuid, user_uuid }
             });
 
             if (!task) {
