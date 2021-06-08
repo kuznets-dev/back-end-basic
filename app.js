@@ -1,4 +1,5 @@
 const express = require ('express');
+const cors = require('cors');
 const tasksGET = require ('./routes/tasks/tasks.get');
 const taskPOST = require ('./routes/tasks/task.post.js');
 const taskPATCH = require ('./routes/tasks/task.patch.js');
@@ -11,6 +12,7 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 app.use(tasksGET);
 app.use(taskPOST);
 app.use(taskPATCH);
