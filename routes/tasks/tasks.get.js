@@ -1,5 +1,5 @@
 const { Router } = require ("express");
-const { Task } = require ('../../models');
+const { Task, User } = require ('../../models');
 const { ErrorHandler } = require ('../../error')
 const { query, validationResult } = require ('express-validator');
 const authMiddleware = require('../../middleware/authMiddleware');
@@ -23,14 +23,20 @@ router.get('/tasks',
 
             const { filterBy = '', orderBy = 'asc', page = 1, limit = 5 } = req.query;
 
-            const filteredTasks = { 'true': true, 'false': false, '': [true, false] };
+            const filteredTasks = { 'done': true, 'undone': false, '': [true, false] };
             const sorteredTasks = { 'asc': 'ASC', 'desc': 'DESC' };
 
             if (filteredTasks[filterBy] === undefined || sorteredTasks[orderBy] === undefined) {
                 throw new ErrorHandler(400, 'Something went wrong...');
             }
 
-            const {count, rows} = await Task.findAndCountAll({
+            const { name } = await User.findOne({
+                where: {
+                    uuid: user_uuid
+                }
+            })
+
+            const { count, rows } = await Task.findAndCountAll({
                 where: {
                     user_uuid: user_uuid,
                     done: filteredTasks[filterBy]
@@ -41,7 +47,7 @@ router.get('/tasks',
             })
             const pageCount =  Math.ceil(count / limit);
             
-            return res.send({pageCount, rows});
+            return res.send({ pageCount, rows, name });
         } catch (err) {
             next(err);
         }
