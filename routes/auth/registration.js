@@ -19,11 +19,11 @@ router.post('/registration',
                 throw new ErrorHandler(400, errors.array());
             }
 
-            const userName = await User.findOne({
+            const existingUser = await User.findOne({ 
                 where: { name }
             })
 
-            if (userName) {
+            if (existingUser) {
                 throw new ErrorHandler(400, 'User with this same exists')
             }
 
