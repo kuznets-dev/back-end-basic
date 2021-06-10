@@ -13,13 +13,14 @@ router.get('/tasks',
     query('page').isInt().optional({ checkFalsy: true }),
     query('limit').isInt().optional({ checkFalsy: true }),
     async (req, res, next) => {
+
+        const user_uuid = res.locals.user.uuid;
+
         try {
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
                 throw new ErrorHandler(400, errors.array());
             }
-
-            const user_uuid = res.locals.user.uuid;
 
             const { filterBy = '', orderBy = 'asc', page = 1, limit = 5 } = req.query;
 

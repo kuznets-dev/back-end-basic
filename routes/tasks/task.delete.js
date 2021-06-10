@@ -12,6 +12,7 @@ router.delete('/task/:uuid',
     async (req, res, next) => {
 
         const uuid = req.params.uuid;
+        const user_uuid = res.locals.user.uuid;
         
         try {
             const errors = validationResult(req);
@@ -19,8 +20,6 @@ router.delete('/task/:uuid',
             if (!errors.isEmpty()) {
                 throw new ErrorHandler(400, 'Invalid request', errors.array());
             }
-
-            const user_uuid = res.locals.user.uuid;
 
             const exestingTask = await Task.findOne({
                 where: { uuid, user_uuid }

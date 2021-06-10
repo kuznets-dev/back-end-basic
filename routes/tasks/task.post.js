@@ -13,6 +13,7 @@ router.post('/task',
     async (req, res, next) => {
         
         const { name, done } = req.body;
+        const user_uuid = res.locals.user.uuid;
     
         try {
         const errors = validationResult(req);
@@ -20,8 +21,6 @@ router.post('/task',
         if (!errors.isEmpty()) {
             throw new ErrorHandler(400, 'Task is empty', errors.array());
         }
-
-        const user_uuid = res.locals.user.uuid;
         
         const taskName = await Task.findOne({
             where: { user_uuid, name }
