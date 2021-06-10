@@ -16,7 +16,7 @@ router.post('/registration',
             const errors = validationResult(req);
             
             if  (!errors.isEmpty()) {
-                throw new ErrorHandler(400, errors.array());
+                throw new ErrorHandler(400, 'Enter login and password', errors.array());
             }
 
             const existingUser = await User.findOne({ 
