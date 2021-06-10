@@ -18,7 +18,7 @@ router.post('/task',
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
-            throw new ErrorHandler(400, errors.array());
+            throw new ErrorHandler(400, 'Task is empty', errors.array());
         }
 
         const user_uuid = res.locals.user.uuid;
