@@ -24,11 +24,11 @@ router.patch('/task/:uuid',
                 throw new ErrorHandler(400, errors.array());
             }
             
-            const task = await Task.findOne({
+            const exestingTask = await Task.findOne({
                 where: { uuid, user_uuid }
             });
 
-            if (!task) {
+            if (!exestingTask) {
                 throw new ErrorHandler(422, 'Task not found');
             }
 
