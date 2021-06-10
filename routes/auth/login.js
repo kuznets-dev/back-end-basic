@@ -17,7 +17,7 @@ router.post('/login',
             const errors = validationResult(req);
 
             if (!errors.isEmpty()) {
-                throw new ErrorHandler(400, errors.array());
+                throw new ErrorHandler(400, 'Enter login and password', errors.array());
             }
 
             const userName = await User.findOne({
