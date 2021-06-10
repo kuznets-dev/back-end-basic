@@ -19,7 +19,7 @@ router.get('/tasks',
         try {
             const errors = validationResult(req);
             if (!errors.isEmpty()) {
-                throw new ErrorHandler(400, errors.array());
+                throw new ErrorHandler(400, 'Invalid request', errors.array());
             }
 
             const { filterBy = '', orderBy = 'asc', page = 1, limit = 5 } = req.query;
