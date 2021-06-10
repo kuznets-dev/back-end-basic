@@ -20,23 +20,23 @@ router.post('/login',
                 throw new ErrorHandler(400, 'Enter login and password', errors.array());
             }
 
-            const userName = await User.findOne({
+            const existingName = await User.findOne({
                 where: { name }
             })
 
-            if (!userName) {
+            if (!existingName) {
                 throw new ErrorHandler(400, 'User not found!')
             }
 
-            const userPassword = await User.findOne({
+            const existingPassword = await User.findOne({
                 where: { name, password }
             })
 
-            if (!userPassword) {
+            if (!existingPassword) {
                 throw new ErrorHandler(400, 'Password is wrong')
             }
 
-            const uuid = userPassword.dataValues.uuid
+            const uuid = existingPassword.dataValues.uuid;
             const token = jwt.sign({ uuid }, process.env.SECRET, { expiresIn: '24h' });
 
             return res.json({token});
