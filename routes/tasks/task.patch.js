@@ -15,6 +15,7 @@ router.patch('/task/:uuid',
 
         const uuid = req.params.uuid;
         const { name, done } = req.body;
+        const user_uuid = res.locals.user.uuid;
 
         try {
             const errors = validationResult(req);
@@ -22,9 +23,7 @@ router.patch('/task/:uuid',
             if (!errors.isEmpty()) {
                 throw new ErrorHandler(400, errors.array());
             }
-
-            const user_uuid = res.locals.user.uuid;
-
+            
             const task = await Task.findOne({
                 where: { uuid, user_uuid }
             });
@@ -33,10 +32,7 @@ router.patch('/task/:uuid',
                 throw new ErrorHandler(422, 'Task not found');
             }
 
-            task.name = name;
-            task.done = done;
-
-            await task.save();
+            await Task.update({ name, done }, { where: { uuid, user_uuid } })
 
             return res.send({ message: 'Task was changed!' });
         } catch (err) {
