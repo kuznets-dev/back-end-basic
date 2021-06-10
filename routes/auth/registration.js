@@ -6,8 +6,8 @@ const { ErrorHandler } = require('../../error');
 const router = Router();
 
 router.post('/registration',
-    body('name').isString().isLength({ min: 3 }),
-    body('password').isString().isLength({ min: 4 }),
+    body('name').isString().isLength({ min: 4 }).withMessage('Username must be at least 4 chars long'),
+    body('password').isString().isLength({ min: 4 }).withMessage('Password must be at least 4 chars long'),
     async (req, res, next) => {
 
         const { name, password } = req.body;
@@ -16,7 +16,9 @@ router.post('/registration',
             const errors = validationResult(req);
             
             if  (!errors.isEmpty()) {
-                throw new ErrorHandler(400, 'Enter login and password', errors.array());
+                const extractedErrors = [];
+                errors.array().map(err => extractedErrors.push(err.msg))
+                throw new ErrorHandler(400, `${extractedErrors}`, errors.array());
             }
 
             const existingUser = await User.findOne({ 
