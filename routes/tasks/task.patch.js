@@ -21,7 +21,7 @@ router.patch('/task/:uuid',
             const errors = validationResult(req);
 
             if (!errors.isEmpty()) {
-                throw new ErrorHandler(400, errors.array());
+                throw new ErrorHandler(400, 'Invalid request', errors.array());
             }
             
             const exestingTask = await Task.findOne({
