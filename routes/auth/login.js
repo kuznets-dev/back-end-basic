@@ -20,11 +20,11 @@ router.post('/login',
                 throw new ErrorHandler(400, 'Enter login and password', errors.array());
             }
 
-            const existingName = await User.findOne({
+            const existingUser = await User.findOne({
                 where: { name }
             })
 
-            if (!existingName) {
+            if (!existingUser) {
                 throw new ErrorHandler(400, 'User not found!')
             }
 
