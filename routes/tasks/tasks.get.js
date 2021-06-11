@@ -31,12 +31,6 @@ router.get('/tasks',
                 throw new ErrorHandler(400, 'Something went wrong...');
             }
 
-            const { name } = await User.findOne({
-                where: {
-                    uuid: user_uuid
-                }
-            })
-
             const { count, rows } = await Task.findAndCountAll({
                 where: {
                     user_uuid: user_uuid,
@@ -48,7 +42,7 @@ router.get('/tasks',
             })
             const pageCount =  Math.ceil(count / limit);
             
-            return res.send({ pageCount, rows, name });
+            return res.send({ pageCount, rows });
         } catch (err) {
             next(err);
         }
