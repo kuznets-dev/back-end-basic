@@ -6,6 +6,7 @@ const taskPATCH = require ('./routes/tasks/task.patch.js');
 const taskDEL = require ('./routes/tasks/task.delete.js');
 const registartion = require('./routes/auth/registration.js');
 const login = require('./routes/auth/login.js');
+const taskDND = require('./routes/tasks/task.patch.dnd.js');
 const { handleError } = require('./error');
 
 const PORT = process.env.PORT || 3000;
@@ -17,6 +18,7 @@ app.use(tasksGET);
 app.use(taskPOST);
 app.use(taskPATCH);
 app.use(taskDEL);
+app.use(taskDND);
 app.use(registartion);
 app.use(login);
 
