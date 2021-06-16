@@ -13,7 +13,7 @@ module.exports = {
       },
       done: {
         type: Sequelize.BOOLEAN,
-      allowNull: false
+        allowNull: false
       },
       createdAt: {
         allowNull: false,
