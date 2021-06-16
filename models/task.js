@@ -28,6 +28,11 @@ module.exports = (sequelize, DataTypes) => {
     user_uuid: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4
+    },
+    index: {
+      type: DataTypes.INTEGER,  
+      autoIncrement: true,
+      allowNull: false
     }
   }, {
     sequelize,
