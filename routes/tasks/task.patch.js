@@ -1,6 +1,6 @@
-const { Router } = require ('express');
-const { Task } = require ('../../models');
-const { body, param, validationResult } = require ('express-validator');
+const { Router } = require('express');
+const { Task } = require('../../models');
+const { body, param, validationResult } = require('express-validator');
 const { ErrorHandler } = require('../../error');
 const authMiddleware = require('../../middleware/authMiddleware');
 
@@ -12,7 +12,6 @@ router.patch('/task/:uuid',
     body('done').isBoolean(),
     param('uuid').isUUID(),
     async (req, res, next) => {
-
         const uuid = req.params.uuid;
         const { name, done } = req.body;
         const user_uuid = res.locals.user.uuid;
