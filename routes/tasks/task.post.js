@@ -32,7 +32,7 @@ router.post('/task',
         
         const task = await Task.create({ name, done, user_uuid });
 
-        return res.json(task); 
+        return res.send(task); 
     } catch (err) {
         next(err);
     }
