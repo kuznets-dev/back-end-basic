@@ -1,7 +1,7 @@
-const { Router } = require ("express");
-const { Task, User } = require ('../../models');
-const { ErrorHandler } = require ('../../error')
-const { query, validationResult } = require ('express-validator');
+const { Router } = require("express");
+const { Task, User } = require('../../models');
+const { ErrorHandler } = require('../../error')
+const { query, validationResult } = require('express-validator');
 const authMiddleware = require('../../middleware/authMiddleware');
 
 const router = Router();
