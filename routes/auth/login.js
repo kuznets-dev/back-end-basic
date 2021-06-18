@@ -1,7 +1,7 @@
 require('dotenv').config();
-const { Router } = require ('express');
-const { User } = require ('../../models');
-const { body, validationResult } = require ('express-validator');
+const { Router } = require('express');
+const { User } = require('../../models');
+const { body, validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 const { ErrorHandler } = require('../../error');
 
