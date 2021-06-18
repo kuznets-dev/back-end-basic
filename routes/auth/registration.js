@@ -2,6 +2,7 @@ const { Router } = require('express');
 const { User } = require('../../models');
 const { body, validationResult } = require('express-validator');
 const { ErrorHandler } = require('../../error');
+const bcrypt = require('bcryptjs');
 
 const router = Router();
 
@@ -29,7 +30,8 @@ router.post('/registration',
                 throw new ErrorHandler(400, 'User with this same exists')
             }
 
-            const user = await User.create({ name, password });
+            const hashPassword = bcrypt.hashSync(password, 5);
+            const user = await User.create({ name, password: hashPassword });
 
             return res.json(user);
         } catch (err) {
