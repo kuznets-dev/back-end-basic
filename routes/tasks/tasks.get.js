@@ -36,7 +36,7 @@ router.get('/tasks',
                     user_uuid: user_uuid,
                     done: filteredTasks[filterBy]
                 },
-                order: [['index', sorteredTasks[orderBy]]],
+                order: [['order', sorteredTasks[orderBy]]],
                 limit: limit,
                 offset: (page - 1) * limit
             })

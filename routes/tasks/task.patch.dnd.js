@@ -14,8 +14,8 @@ router.patch('/dnd',
     async (req, res, next) => {
         const { source, destination } = req.body;
         const user_uuid = res.locals.user.uuid;
-        const desIndex = destination.index
-        const sourIndex = source.index
+        const desIndex = destination.order
+        const sourIndex = source.order
         const sourUUID = source.uuid
 
         try {
@@ -29,21 +29,21 @@ router.patch('/dnd',
                 const betweenTasks = await Task.findAll({
                     where: {
                         user_uuid,
-                        index: { [Op.between]: [sourIndex, desIndex] }
+                        order: { [Op.between]: [sourIndex, desIndex] }
                     }
                 })
-                await betweenTasks.map(task => Task.update({ index: task.index - 1 }, { where: { uuid: task.uuid, user_uuid } }));
+                await betweenTasks.map(task => Task.update({ order: task.order - 1 }, { where: { uuid: task.uuid, user_uuid } }));
             } else {
                 const betweenTasks = await Task.findAll({
                     where: {
                         user_uuid,
-                        index: { [Op.between]: [desIndex, sourIndex] }
+                        order: { [Op.between]: [desIndex, sourIndex] }
                     }
                 })
-                await betweenTasks.map(task => Task.update({ index: task.index + 1 }, { where: { uuid: task.uuid, user_uuid } }))
+                await betweenTasks.map(task => Task.update({ order: task.order + 1 }, { where: { uuid: task.uuid, user_uuid } }))
             }
 
-            await Task.update({ index: desIndex }, { where: { uuid: sourUUID, user_uuid } })
+            await Task.update({ order: desIndex }, { where: { uuid: sourUUID, user_uuid } })
             return res.send();
         } catch (err) {
             next(err);
