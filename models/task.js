@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4
     },
-    index: {
+    order: {
       type: DataTypes.INTEGER,  
       autoIncrement: true,
       allowNull: false
