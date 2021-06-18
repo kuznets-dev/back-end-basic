@@ -4,6 +4,7 @@ const { User } = require('../../models');
 const { body, validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
 const { ErrorHandler } = require('../../error');
+const bcrypt = require('bcryptjs');
 
 const router = Router();
 
@@ -28,15 +29,13 @@ router.post('/login',
                 throw new ErrorHandler(400, 'User not found!')
             }
 
-            const existingPassword = await User.findOne({
-                where: { name, password }
-            })
+            const validPassword = bcrypt.compareSync(password, existingUser.password);
 
-            if (!existingPassword) {
+            if (!validPassword) {
                 throw new ErrorHandler(400, 'Password is wrong')
             }
 
-            const uuid = existingPassword.dataValues.uuid;
+            const uuid = existingUser.uuid;
             const token = jwt.sign({ uuid }, process.env.SECRET, { expiresIn: '24h' });
 
             return res.json({token});
