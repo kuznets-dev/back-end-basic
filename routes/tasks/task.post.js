@@ -1,6 +1,6 @@
-const { Router } = require ('express');
-const { Task } = require ('../../models');
-const { body, validationResult } = require ('express-validator');
+const { Router } = require('express');
+const { Task } = require('../../models');
+const { body, validationResult } = require('express-validator');
 const { ErrorHandler } = require('../../error');
 const authMiddleware = require('../../middleware/authMiddleware');
 
