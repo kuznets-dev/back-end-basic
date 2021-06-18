@@ -2,7 +2,7 @@
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.addColumn('Tasks', 'index', {
+    await queryInterface.addColumn('Tasks', 'order', {
       type: Sequelize.INTEGER,
       autoIncrement: true,
       allowNull: false  
@@ -10,6 +10,6 @@ module.exports = {
   },
 
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.removeColumn('Tasks', 'index');
+    await queryInterface.removeColumn('Tasks', 'order');
   }
 };
